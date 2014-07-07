@@ -1,0 +1,115 @@
+// this big_box CSS requires sass and sill
+
+#big_box {
+  @include layer($index: 99999);
+  .content {
+    @include layer($top: 4.5em, $right: 4.5em, $bottom: 4.5em, $left: 4.5em);
+    z-index:2; background-color: #fff; 
+    
+    .bb-scroll {
+      overflow: auto; max-height: 100%;
+    }
+
+    .bb-main {
+      padding: 2em;
+    }
+    
+    .bb-top {
+      padding: 20px; background-color: #454646; color: #ced0d1; margin: 0;
+      font-size: 28px; line-height: 34px;
+      > * {
+        font-family: $font; letter-spacing: normal; font-size: 0.45em;
+      }
+      div { float: right; margin-top: -6px; }
+      button { /* no styles */ }
+    }
+    
+    .tabs {
+      @include layer($top: 24px, $right: 20px);
+      margin: 0; padding: 0;
+      a {
+        display: inline-block; padding-left: 15px; color: #a2a3a3;
+        &:hover, &.active {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .overlay { // sill overlay
+    z-index: 0;
+  }
+  .close {
+    background: url('sprites.png') no-repeat; position: absolute;
+    width: 32px; height: 32px; @include icon(1,14,$icon); cursor: pointer;
+    top: 4.5em; right:4.5em; z-index: 3; margin-top: -16px; margin-right: -16px;
+  }
+  &.no-close { // may not need anymore
+    .close { display:none; }
+  }
+}
+
+// big box table
+#big_box .content table.big_box {
+  margin: 0; width: 100%;
+  background: lighten($secondary,45%);
+  thead {
+    @include chisel($secondary);
+    th, td { white-space: nowrap;}
+  }
+  tbody { }
+  tfoot { display: none; }
+  td, th {
+    text-align: center;
+    @include chisel(lighten($secondary,10%));
+    border-right-width:0;
+       white-space:nowrap;
+    + & {
+       border-left-width:1px;
+    }
+    &:first-child {
+      text-align: left;
+      border-left:none;
+    }
+    &:last-child {
+      text-align: left;
+      border-right:none;
+      white-space: normal;
+    }
+  }
+}
+
+a.export {
+  display: block;
+  @include corners(6px);
+  @include highlight(0.25);
+  color: lighten($primary,25%);
+  margin-top: -3px;
+  @include shadow(rgba(0,0,0,0.7),0,0.7em);
+  cursor: pointer;
+  margin-left: 0.66em;
+  padding: 0.1em 0.76em 0.1em 0.56em;
+  float:right;
+  &:after {
+    content: ' ';
+    display: block;
+    display: inline-block;
+    background: url('sprites.png') no-repeat;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    @include icon(2,22,$icon);
+    top: 0.1em; 
+  }
+}
+ 
+// pass in bbClass: "md" in options
+#big_box.md {
+  .content {
+    overflow: visible; top: 2em; left: 50%; width: 600px;
+    margin-left: -300px;
+  }
+  .close {
+    left: 50%; margin-left: 284px; margin-right: 0; top: 2em;
+  }
+
+}
